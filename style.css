@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.searchFilter {
+  width: 50%;
+  margin: 50px 80px 50px 0;
+  padding: 10px 0 10px 20px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.areaSelector__label {
+  margin: 10px;
+}
+
+.genderSelector__label {
+  margin: 0 10px 0 30px;
+}
