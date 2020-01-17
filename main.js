@@ -51,11 +51,10 @@
 
     for (i; i < tableBody.rows.length; i++) {
       // Iterates on table rows
+      let validGender = genderFilter(i, columnIndexGender), // equals true if the row contains the selected 'gender'
+        validArea = areaFilter(i, columnIndexArea); // equals true if the row contains the selected 'area'
       temporaryRow = tableBody.rows[i]; // Stores temporary row
-      compareTexts: if (
-        genderFilter(i, columnIndexGender) &&
-        areaFilter(i, columnIndexArea)
-      ) {
+      compareTexts: if (validGender && validArea) {
         // Only uses search filter if candidate already respected 'area' and 'gender' filters
         for (j; j < temporaryRow.cells.length; j++) {
           // Iterates on temporary row cells
