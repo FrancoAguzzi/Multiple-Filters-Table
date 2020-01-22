@@ -42,8 +42,8 @@
           <th scope="col">Experiência</th>
         </tr>
       </thead>
-      <tbody class="tableBody">
-        <tr>
+      <tbody id="tbody" class="tableBody">
+        <!-- <tr>
           <th scope="row">1</th>
           <td>John</td>
           <td>FrontEnd</td>
@@ -133,12 +133,23 @@
           <td>Content</td>
           <td>Feminino</td>
           <td>X meses</td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
 
-    <form action="#" method="GET">
-      <label for="">Nome</label>
+    <form class="form-group" id="register" name="novo_cadastro">
+      <label for="id">#</label>
+      <input id="id" class="form-control" type="text" name="id" required>
+      <label for="nome">Nome</label>
+      <input id="nome" class="form-control" type="text" name="nome" required>
+      <label for="area">Área</label>
+      <input id="area" class="form-control" type="text" name="area" required>
+      <label for="genero">Gênero</label>
+      <input id="genero" class="form-control" type="text" name="genero" required>
+      <label for="experiencia">Experiência</label>
+      <input id="experiencia" class="form-control" type="text" name="experiencia" required>
+      </br>
+      <input class="btn btn-primary" type="submit" name="submit" value="Cadastrar">
     </form>
   </div>
 </body>
