@@ -1,51 +1,54 @@
 (function () {
   "use strict";
 
+  let id = 0;
+  const tabela = document.querySelector("#tbody")
+
+  // DEFAULT CANDIDATES 
   let ListInicialDeCandidatos = [
     {
-      id: 1,
+      id: getId(),
       nome: "John",
       area: "FrontEnd",
       genero: "Masculino",
       experiencia: "x anos",
     },
     {
-      id: 2,
+      id: getId(),
       nome: "Fabiana",
       area: "BackEnd",
       genero: "Feminino",
       experiencia: "x anos",
     },
     {
-      id: 3,
+      id: getId(),
       nome: "Ted",
       area: "Content",
       genero: "Masculino",
       experiencia: "Nenhuma",
     },
     {
-      id: 4,
+      id: getId(),
       nome: "Joana",
       area: "FrontEnd",
       genero: "Feminino",
       experiencia: "x anos",
     },
     {
-      id: 5,
+      id: getId(),
       nome: "Joaquim",
       area: "BackEnd",
       genero: "Masculino",
       experiencia: "x anos",
     },
+    {
+      id: getId(),
+      nome: "Felipe",
+      area: "Design",
+      genero: "Masculino",
+      experiencia: "x meses",
+    }
   ]
-
-  ListInicialDeCandidatos.push({
-    id: 6,
-    nome: "Felipe",
-    area: "Design",
-    genero: "Masculino",
-    experiencia: "x meses",
-  })
 
   init(ListInicialDeCandidatos, true);
 
@@ -55,20 +58,30 @@
     selectArea = document.querySelector("#areaSelector"),
     selectGender = document.querySelector("#genderSelector");
 
+   // CREATING ID 
+  function getId() {
+    id += 1;
+    return id;
+  }
+
   // SETTING DEFAULT VALUE FORMAT
   function getValueOnColumnSanitized(line, column) {
     return tableBody.rows[line].cells[column].innerHTML.toUpperCase().trim();
   }
 
+
+  // CREATING DEFAULT CANDIDATOS
   function init(candidatos, primeiraVez) {
 
     const listaNoLocalSorage = JSON.parse(localStorage.getItem("listaDeCandidatos"));
     if (listaNoLocalSorage && primeiraVez) {
       candidatos = listaNoLocalSorage;
+      id = listaNoLocalSorage[listaNoLocalSorage.length - 1].id;
     }
 
-    const tabela = document.querySelector("#tbody")
+    
     let linhas = '';
+
     candidatos.forEach(candidato => {
       linhas += `
         <tr>
@@ -80,8 +93,6 @@
         </tr>`
     });
     tabela.innerHTML = linhas;
-
-    console.log(tabela)
   }
 
   // CREATING FILTER FUNCTIONS
@@ -150,16 +161,17 @@
   selectGender.addEventListener("change", filterAll);
 
 
-
+  // ADDING NEW REGISTER TO CANDIDATES LIST AND HTML 
   const form = document.querySelector('#register')
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     newRegister(e);
   })
 
-  //ADD NEW REGISTER
+
+  //NEW REGISTER
   const newRegister = (e) => {
-    let novoId = document.getElementById("id").value;
+    let novoId = getId();
     let novoNome = document.getElementById("nome").value;
     let novoArea = document.getElementById("area").value;
     let novoGenero = document.getElementById("genero").value;
@@ -173,46 +185,24 @@
       experiencia: novoExperiencia,
     }
 
-
     ListInicialDeCandidatos = ListInicialDeCandidatos.concat(novoCandidato);
 
-    init(ListInicialDeCandidatos)
+    let linhas = '';
+
+    linhas = `
+        <tr>
+          <th scope="row">${novoCandidato.id}</th>
+          <td>${novoCandidato.nome}</td>
+          <td>${novoCandidato.area}</td>
+          <td>${novoCandidato.genero}</td>
+          <td>${novoCandidato.experiencia}</td>
+        </tr>`
+    tabela.innerHTML += linhas;    
+
+    // init(ListInicialDeCandidatos)
     salvarLocalStorage(ListInicialDeCandidatos)
 
     return true;
-
-    // let tableRef = document.getElementById("tbody");
-
-    // let newRow = tableRef.insertRow(tableRef.rows.length);
-
-    // let newCellid = newRow.insertCell(0);
-    // let newTextid = document.createTextNode(novoId);
-    // newCellid.appendChild(newTextid);
-
-    // // localStorage.setItem("id", "novoId");
-    // // document.getElementById("result").innerHTML = localStorage.getItem("id");
-
-    // let newCellnome = newRow.insertCell(1);
-    // let newTextnome = document.createTextNode(novoNome);
-    // newCellnome.appendChild(newTextnome);
-
-    // // localStorage.setItem("nome", "novoNome");
-    // // document.getElementById("result").innerHTML = localStorage.getItem("nome");
-
-    // let newCellarea = newRow.insertCell(2);
-    // let newTextarea = document.createTextNode(novoArea);
-    // newCellarea.appendChild(newTextarea);
-
-    // let newCellgenero = newRow.insertCell(3);
-    // let newTextgenero = document.createTextNode(novoGenero);
-    // newCellgenero.appendChild(newTextgenero);
-
-    // let newCellexperiencia = newRow.insertCell(4);
-    // let newTextexperiencia = document.createTextNode(novoExperiencia);
-    // newCellexperiencia.appendChild(newTextexperiencia);
-
-    // return false;
-    // lala
   }
 
   function salvarLocalStorage(listNova) {
