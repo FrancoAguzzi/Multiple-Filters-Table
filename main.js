@@ -212,11 +212,13 @@
     // newCellexperiencia.appendChild(newTextexperiencia);
 
     // return false;
+    // lala
   }
 
   function salvarLocalStorage(listNova) {
     localStorage.setItem("listaDeCandidatos", JSON.stringify(listNova));
   }
+
 
 
 })();
