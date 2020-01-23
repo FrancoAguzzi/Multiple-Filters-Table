@@ -16,6 +16,7 @@
     <form action="get" class="form">
       <label for="searchFilter"></label>
       <input type="text" name="searchFilter" id="searchFilter" class="searchFilter" placeholder="Search" />
+
       <label for="areaSelector" class="areaSelector__label">Área:</label>
       <select name="areaSelector" id="areaSelector" class="areaSelector">
         <option value="all">All</option>
@@ -26,6 +27,12 @@
         <option value="design">Design</option>
       </select>
 
+      <label for="genderSelector" class="genderSelector__label">Gênero:</label>
+      <select name="genderSelector" id="genderSelector" class="genderSelector">
+        <option value="all">All</option>
+        <option value="feminino">Feminino</feminino>
+        <option value="masculino">Masculino</option>
+      </select>
 
     </form>
     <table class="table table-striped table-dark">
@@ -78,8 +85,8 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="experiencia">Experiência</label>
         </div>
-        <select id="experiencia" class="custom-select" text" name="experiencia" required>
-          <option selected value=" "></option>
+        <select id="experiencia" class="custom-select" name="experiencia" required>
+          <option selected value="nenhuma">Nenhuma</option>
           <option value="ate_6_meses">Até 6 meses</option>
           <option value="de_6_meses_a_1_ano">De 6 meses a 1 ano</option>
           <option value="1_ano">1 ano</option>

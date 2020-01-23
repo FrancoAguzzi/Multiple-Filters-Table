@@ -9,14 +9,14 @@
     {
       id: getId(),
       nome: "John",
-      area: "FrontEnd",
+      area: "Frontend",
       genero: "Masculino",
       experiencia: "x anos",
     },
     {
       id: getId(),
       nome: "Fabiana",
-      area: "BackEnd",
+      area: "Backend",
       genero: "Feminino",
       experiencia: "x anos",
     },
@@ -30,14 +30,14 @@
     {
       id: getId(),
       nome: "Joana",
-      area: "FrontEnd",
+      area: "Frontend",
       genero: "Feminino",
       experiencia: "x anos",
     },
     {
       id: getId(),
       nome: "Joaquim",
-      area: "BackEnd",
+      area: "Backend",
       genero: "Masculino",
       experiencia: "x anos",
     },
@@ -168,6 +168,20 @@
     newRegister(e);
   })
 
+  //Capitalizing Area and Gender Value
+  function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
+  //Sanitizing Experience Value
+  function sanitizeExp(exp) {
+    debugger;
+    exp = exp.replace('_', ' ');
+    if (typeof exp[0] === String) {
+      exp = exp[0].toUpperCase();
+    }
+    return exp;
+  }
 
   //NEW REGISTER
   const newRegister = (e) => {
@@ -175,13 +189,13 @@
     let novoNome = document.getElementById("nome").value;
     let novoArea = document.getElementById("area").value;
     let novoGenero = document.getElementById("genero").value;
-    let novoExperiencia = document.getElementById("experiencia").value;
+    let novoExperiencia = document.getElementById("experiencia").value.textContent;
 
     const novoCandidato = {
       id: novoId,
       nome: novoNome,
-      area: novoArea,
-      genero: novoGenero,
+      area: capitalize(novoArea),
+      genero: capitalize(novoGenero),
       experiencia: novoExperiencia,
     }
 
