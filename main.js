@@ -1,54 +1,54 @@
-(function () {
+(function() {
   "use strict";
 
   let id = 0;
-  const tabela = document.querySelector("#tbody")
+  const tabela = document.querySelector("#tbody");
 
-  // DEFAULT CANDIDATES 
+  // DEFAULT CANDIDATES
   let ListInicialDeCandidatos = [
     {
       id: getId(),
       nome: "John",
       area: "Frontend",
       genero: "Masculino",
-      experiencia: "x anos",
+      experiencia: "x anos"
     },
     {
       id: getId(),
       nome: "Fabiana",
       area: "Backend",
       genero: "Feminino",
-      experiencia: "x anos",
+      experiencia: "x anos"
     },
     {
       id: getId(),
       nome: "Ted",
       area: "Content",
       genero: "Masculino",
-      experiencia: "Nenhuma",
+      experiencia: "Nenhuma"
     },
     {
       id: getId(),
       nome: "Joana",
       area: "Frontend",
       genero: "Feminino",
-      experiencia: "x anos",
+      experiencia: "x anos"
     },
     {
       id: getId(),
       nome: "Joaquim",
       area: "Backend",
       genero: "Masculino",
-      experiencia: "x anos",
+      experiencia: "x anos"
     },
     {
       id: getId(),
       nome: "Felipe",
       area: "Design",
       genero: "Masculino",
-      experiencia: "x meses",
+      experiencia: "x meses"
     }
-  ]
+  ];
 
   init(ListInicialDeCandidatos, true);
 
@@ -58,7 +58,7 @@
     selectArea = document.querySelector("#areaSelector"),
     selectGender = document.querySelector("#genderSelector");
 
-   // CREATING ID 
+  // CREATING ID
   function getId() {
     id += 1;
     return id;
@@ -69,18 +69,17 @@
     return tableBody.rows[line].cells[column].innerHTML.toUpperCase().trim();
   }
 
-
   // CREATING DEFAULT CANDIDATOS
   function init(candidatos, primeiraVez) {
-
-    const listaNoLocalSorage = JSON.parse(localStorage.getItem("listaDeCandidatos"));
+    const listaNoLocalSorage = JSON.parse(
+      localStorage.getItem("listaDeCandidatos")
+    );
     if (listaNoLocalSorage && primeiraVez) {
       candidatos = listaNoLocalSorage;
       id = listaNoLocalSorage[listaNoLocalSorage.length - 1].id;
     }
 
-    
-    let linhas = '';
+    let linhas = "";
 
     candidatos.forEach(candidato => {
       linhas += `
@@ -90,7 +89,7 @@
           <td>${candidato.area}</td>
           <td>${candidato.genero}</td>
           <td>${candidato.experiencia}</td>
-        </tr>`
+        </tr>`;
     });
     tabela.innerHTML = linhas;
   }
@@ -126,7 +125,7 @@
   function filterAll() {
     debugger;
     let i = 0, // row index
-      j = 0, // cell index a 
+      j = 0, // cell index a
       temporaryRow,
       found = false,
       columnIndexArea = 2, // area column index (used by area select filter)
@@ -160,48 +159,39 @@
   searchInput.addEventListener("keyup", filterAll);
   selectGender.addEventListener("change", filterAll);
 
-
-  // ADDING NEW REGISTER TO CANDIDATES LIST AND HTML 
-  const form = document.querySelector('#register')
-  form.addEventListener('submit', (e) => {
+  // ADDING NEW REGISTER TO CANDIDATES LIST AND HTML
+  const form = document.querySelector("#register");
+  form.addEventListener("submit", e => {
     e.preventDefault();
     newRegister(e);
-  })
+  });
 
   //Capitalizing Area and Gender Value
   function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-  //Sanitizing Experience Value
-  function sanitizeExp(exp) {
-    debugger;
-    exp = exp.replace('_', ' ');
-    if (typeof exp[0] === String) {
-      exp = exp[0].toUpperCase();
-    }
-    return exp;
-  }
-
   //NEW REGISTER
-  const newRegister = (e) => {
+  const newRegister = e => {
     let novoId = getId();
     let novoNome = document.getElementById("nome").value;
     let novoArea = document.getElementById("area").value;
     let novoGenero = document.getElementById("genero").value;
-    let novoExperiencia = document.getElementById("experiencia").value.textContent;
+    let novoExperiencia = document.getElementById("experiencia").options[
+      document.getElementById("experiencia").selectedIndex
+    ].innerHTML; //label of the selected option
 
     const novoCandidato = {
       id: novoId,
       nome: novoNome,
       area: capitalize(novoArea),
       genero: capitalize(novoGenero),
-      experiencia: novoExperiencia,
-    }
+      experiencia: novoExperiencia
+    };
 
     ListInicialDeCandidatos = ListInicialDeCandidatos.concat(novoCandidato);
 
-    let linhas = '';
+    let linhas = "";
 
     linhas = `
         <tr>
@@ -210,22 +200,16 @@
           <td>${novoCandidato.area}</td>
           <td>${novoCandidato.genero}</td>
           <td>${novoCandidato.experiencia}</td>
-        </tr>`
-    tabela.innerHTML += linhas;    
+        </tr>`;
+    tabela.innerHTML += linhas;
 
     // init(ListInicialDeCandidatos)
-    salvarLocalStorage(ListInicialDeCandidatos)
+    salvarLocalStorage(ListInicialDeCandidatos);
 
     return true;
-  }
+  };
 
   function salvarLocalStorage(listNova) {
     localStorage.setItem("listaDeCandidatos", JSON.stringify(listNova));
   }
-
-
-
 })();
-
-
-
